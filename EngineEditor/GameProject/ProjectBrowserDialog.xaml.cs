@@ -23,15 +23,23 @@ namespace OrangeEditor.GameProject
         {
             InitializeComponent();
         }
-
-        private void OnToggleButton_Click(object sender, RoutedEventArgs e)
+        private async void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
+            int thickness;
+
             if (sender == openProjectButton)
             {
                 if (createProjectButton.IsChecked == true)
                 {
+                    thickness = -800;
                     createProjectButton.IsChecked = false;
-                    browserContent.Margin = new Thickness(0);
+
+                    while (thickness < 0)
+                    {
+                        browserContent.Margin = new Thickness(thickness, 0, 0, 0); // Adjust Thickness as needed
+                        thickness += 40;
+                        await Task.Delay(10); // Add a small delay to allow the UI to update
+                    }
                 }
                 openProjectButton.IsChecked = true;
             }
@@ -39,8 +47,15 @@ namespace OrangeEditor.GameProject
             {
                 if (openProjectButton.IsChecked == true)
                 {
+                    thickness = 0;
                     openProjectButton.IsChecked = false;
-                    browserContent.Margin = new Thickness(-800, 0, 0, 0);
+
+                    while (thickness > -825)
+                    {
+                        browserContent.Margin = new Thickness(thickness, 0, 0, 0); // Adjust Thickness as needed
+                        thickness -= 40;
+                        await Task.Delay(10); // Add a small delay to allow the UI to update
+                    }
                 }
                 createProjectButton.IsChecked = true;
             }
